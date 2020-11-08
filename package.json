@@ -1,0 +1,46 @@
+{
+  "name": "@aliencreations/node-authenticator",
+  "version": "1.0.0",
+  "description": "Authenticator for Alien Creations node apps.",
+  "main": "index.js",
+  "dependencies": {
+    "@aliencreations/node-error": "*",
+    "atob": "^2.1.2",
+    "axios": "^0.18.0",
+    "btoa": "^1.2.1",
+    "cuid": "^1.3.8",
+    "dotenv-safe": "^4.0.3",
+    "flat-cache": "^2.0.1",
+    "jsonwebtoken": "8.x.x",
+    "nyc": "^14.0.0",
+    "ramda": "^0.27.0"
+  },
+  "devDependencies": {
+    "@aliencreations/eslint-config": "^1.x.x",
+    "eslint": "^6.8.0",
+    "eslint-loader": "^2.1.2",
+    "jasmine": "2.4.1",
+    "jasmine-reporters": "^2.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aliencreations/node-authenticator.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "scripts": {
+    "test": "bash ./run/env/test/run.sh",
+    "lint": "eslint .",
+    "lint-fix": "eslint --fix ."
+  },
+  "keywords": [
+    "authenticator",
+    "jwt"
+  ],
+  "author": "Sean Cannon",
+  "bugs": {
+    "url": "https://github.com/aliencreations/node-authenticator/issues"
+  },
+  "homepage": "https://github.com/aliencreations/node-authenticator"
+}

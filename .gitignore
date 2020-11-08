@@ -1,0 +1,7 @@
+node_modules
+.idea
+.DS_Store
+cache
+coverage
+.nyc_output
+yarn-error.log
