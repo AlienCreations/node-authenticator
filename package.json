@@ -1,6 +1,6 @@
 {
   "name": "@aliencreations/node-authenticator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Authenticator for Alien Creations node apps.",
   "main": "index.js",
   "dependencies": {
@@ -12,7 +12,6 @@
     "dotenv-safe": "^4.0.3",
     "flat-cache": "^2.0.1",
     "jsonwebtoken": "8.x.x",
-    "nyc": "^14.0.0",
     "ramda": "^0.27.0"
   },
   "devDependencies": {
@@ -20,7 +19,8 @@
     "eslint": "^6.8.0",
     "eslint-loader": "^2.1.2",
     "jasmine": "2.4.1",
-    "jasmine-reporters": "^2.2.1"
+    "jasmine-reporters": "^2.2.1",
+    "nyc": "^14.0.0"
   },
   "repository": {
     "type": "git",

@@ -8,6 +8,7 @@ module.exports = () => {
     generateAndCacheRefreshToken  : require('./methods/generateAndCacheRefreshToken'),
     generateAndCacheTransferToken : require('./methods/generateAndCacheTransferToken'),
     lookupRefreshToken            : require('./methods/lookupRefreshToken'),
+    deleteRefreshToken            : require('./methods/deleteRefreshToken'),
     sign                          : require('./methods/sign')(jwt),
     verify                        : require('./methods/verify')(jwt),
     urlBase64Encode               : require('./methods/urlBase64Encode'),

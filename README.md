@@ -85,3 +85,6 @@ router.get('/some/route/:id', ensureAuthorized, (req, res) => {
 
 ##### 1.0.0
   - Initial commit.
+
+##### 1.0.1
+  - Add support for deleteRefreshToken
