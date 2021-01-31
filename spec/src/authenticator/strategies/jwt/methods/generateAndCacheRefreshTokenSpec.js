@@ -10,6 +10,7 @@ const FAKE_PAYLOAD                  = { foo : 'bar' },
       FAKE_SECRET                   = 'foo',
       FAKE_EXPIRES_SECONDS          = 5,
       FAKE_OLD_REFRESH_TOKEN        = 'bar',
+      FAKE_RENEW_REFRESH_TOKEN      = 'fuz',
       KNOWN_DEFAULT_EXPIRES_SECONDS = 7200,
       CUID_STRING_LENGTH            = 25;
 
@@ -22,6 +23,8 @@ const FAKE_TOKEN_BODY = {
   oldRefreshToken : FAKE_OLD_REFRESH_TOKEN
 };
 
+const FAKE_TOKEN_BODY_RENEW = R.assoc('renewRefreshToken', FAKE_RENEW_REFRESH_TOKEN)(FAKE_TOKEN_BODY);
+
 describe('authenticator generateAndCacheRefreshToken', () => {
   beforeEach(() => {
     fakeCacheUtils = jasmine.createSpyObj('cacheUtils', ['setItem', 'deleteItem']);
@@ -33,6 +36,17 @@ describe('authenticator generateAndCacheRefreshToken', () => {
     expect(typeof refreshToken).toBe('string');
     expect(refreshToken.length).toBe(CUID_STRING_LENGTH);
 
+    expect(fakeCacheUtils.setItem).toHaveBeenCalledWith(
+      `refreshToken:${refreshToken}`,
+      FAKE_EXPIRES_SECONDS,
+      R.omit(['expires', 'oldRefreshToken'], FAKE_TOKEN_BODY)
+    );
+  });
+
+  it('renews an existing refresh token', () => {
+    const refreshToken = generateAndCacheRefreshToken(fakeCacheUtils)(FAKE_TOKEN_BODY_RENEW);
+
+    expect(refreshToken).toBe(FAKE_RENEW_REFRESH_TOKEN);
     expect(fakeCacheUtils.setItem).toHaveBeenCalledWith(
       `refreshToken:${refreshToken}`,
       FAKE_EXPIRES_SECONDS,

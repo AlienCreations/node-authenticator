@@ -10,9 +10,10 @@ const generateAndCacheRefreshToken = cache => ({
   payload,
   secret,
   oldRefreshToken,
+  renewRefreshToken,
   expires = TWO_HOURS_IN_SECONDS_CACHE_EXPIRE
 }) => {
-  const refreshToken             = cuid(),
+  const refreshToken             = renewRefreshToken || cuid(),
         refreshTokenLookupKey    = `refreshToken:${refreshToken}`,
         oldRefreshTokenLookupKey = `refreshToken:${oldRefreshToken}`,
         refreshTokenLookupData   = { payload, secret };
@@ -26,7 +27,10 @@ const generateAndCacheRefreshToken = cache => ({
   }
 
   cache.setItem(refreshTokenLookupKey, expires, refreshTokenLookupData);
-  cache.deleteItem(oldRefreshTokenLookupKey);
+
+  if (oldRefreshToken) {
+    cache.deleteItem(oldRefreshTokenLookupKey);
+  }
 
   return refreshToken;
 };

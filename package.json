@@ -1,6 +1,6 @@
 {
   "name": "@aliencreations/node-authenticator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Authenticator for Alien Creations node apps.",
   "main": "index.js",
   "dependencies": {

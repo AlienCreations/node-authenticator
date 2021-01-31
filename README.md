@@ -88,3 +88,6 @@ router.get('/some/route/:id', ensureAuthorized, (req, res) => {
 
 ##### 1.0.1
   - Add support for deleteRefreshToken
+
+##### 1.0.2
+  - Add support for refreshToken renewal
