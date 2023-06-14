@@ -9,12 +9,13 @@ const authenticator = require('../../../src/authenticator/strategies/jwt/strateg
 
 const fakeLogger = {
   child : () => ({
-    error : () => {}
+    error : () => {
+    }
   })
 };
 
 const fakeAxiosHasPermission = {
-  get : () => Promise.resolve({
+  get      : () => Promise.resolve({
     data : {
       data : {
         hasPermission : 1
@@ -31,7 +32,7 @@ const fakeAxiosHasPermission = {
 };
 
 const fakeAxiosNoPermission = {
-  get : () => Promise.resolve({
+  get      : () => Promise.resolve({
     data : {
       data : {
         hasPermission : 0
@@ -53,19 +54,19 @@ const fakeCheckPermissionMissing = undefined,
 const { ensureAuthorized } = require('../../../src/middleware/ensureAuthorized');
 
 const FAKE_RESOURCE_REQ_FOR_ROLE_USER_INCLUDES_CLOUD_USER_3 = {
-  method  : 'POST',
-  baseUrl : '',
-  route   : {
+  method             : 'POST',
+  baseUrl            : '',
+  route              : {
     path : '/auth/login/cnn/antioch'
   },
-  tenant             : { id : 2 },
-  tenantOrganization : { id : 2 }
+  tenant             : { uuid : 'fb7afaa7-0016-44fd-addc-461d5fd6cf12' },
+  tenantOrganization : { uuid : 'fefaeb42-e6a9-4b46-be99-f8984d8b3e2f' }
 };
 
 const FAKE_RESOURCE_REQ_FOR_NON_TENANCY_RESOURCE = {
-  method  : 'GET',
-  baseUrl : '',
-  route   : {
+  method             : 'GET',
+  baseUrl            : '',
+  route              : {
     path : '/api/v1/document'
   },
   tenant             : {},
@@ -154,7 +155,7 @@ W3uO+Chmk3Kend3vYh7g9izdKYlnU0r+IkK7LO7jHuSDowFgj8+N
       },
 
       FAKE_DECODED_KNOWN_AGENT                                     = {
-        id       : 2,
+        uuid     : 'cdc0bce5-eeeb-4c3a-b105-3f840d52eaeb',
         key      : 'authPlatform',
         aud      : 'authPlatform',
         name     : 'Test Agent 1',
@@ -164,7 +165,7 @@ W3uO+Chmk3Kend3vYh7g9izdKYlnU0r+IkK7LO7jHuSDowFgj8+N
       },
 
       FAKE_DECODED_UNKNOWN_AGENT                                   = {
-        id       : 2,
+        uuid     : 'cdc0bce5-eeeb-4c3a-b105-3f840d52eaeb',
         key      : 'foo',
         aud      : 'authPlatform',
         name     : 'Test Agent 1',
@@ -174,63 +175,53 @@ W3uO+Chmk3Kend3vYh7g9izdKYlnU0r+IkK7LO7jHuSDowFgj8+N
       },
 
       FAKE_DECODED_KNOWN_SUPERUSER                                 = {
-        id        : 1,
-        email     : 'platformroot@aliencreations.com',
-        firstName : 'Root',
-        lastName  : 'User',
-        strategy  : 'cloudUser',
-        status    : 1,
-        alg       : 'RS256',
-        key       : 'authPlatform',
-        aud       : 'authPlatform'
+        uuid     : 'c75a9614-603e-4fa3-8123-0ec8b3490dc7',
+        email    : 'platformroot@aliencreations.com',
+        strategy : 'cloudUser',
+        status   : 1,
+        alg      : 'RS256',
+        key      : 'authPlatform',
+        aud      : 'authPlatform'
       },
 
       FAKE_DECODED_UNSUPPORTED_ALG                                 = {
-        id        : 1,
-        email     : 'platformroot@aliencreations.com',
-        firstName : 'Root',
-        lastName  : 'User',
-        strategy  : 'cloudUser',
-        status    : 1,
-        alg       : 'HS256',
-        key       : 'authPlatform',
-        aud       : 'authPlatform'
+        uuid     : 'c75a9614-603e-4fa3-8123-0ec8b3490dc7',
+        email    : 'platformroot@aliencreations.com',
+        strategy : 'cloudUser',
+        status   : 1,
+        alg      : 'HS256',
+        key      : 'authPlatform',
+        aud      : 'authPlatform'
       },
 
       FAKE_DECODED_KNOWN_USER_WHO_DOES_NOT_HAVE_PERMISSION         = {
-        id        : 4,
-        email     : 'steven@seagal.com',
-        firstName : 'Steven',
-        lastName  : 'Seagal',
-        strategy  : 'cloudUser',
-        status    : 1,
-        alg       : 'RS256',
-        key       : 'authPlatform',
-        aud       : 'authPlatform'
+        uuid     : '264d87b8-7a09-4fcf-8d5c-f430ebe68661',
+        email    : 'steven@seagal.com',
+        strategy : 'cloudUser',
+        status   : 1,
+        alg      : 'RS256',
+        key      : 'authPlatform',
+        aud      : 'authPlatform'
       },
 
       FAKE_DECODED_KNOWN_USER_WHO_HAS_PERMISSION_FOR_FAKE_RESOURCE = {
-        id        : 3,
-        email     : 'chuck@norris.com',
-        firstName : 'Chuck',
-        lastName  : 'Norris',
-        strategy  : 'cloudUser',
-        status    : 1,
-        alg       : 'RS256',
-        key       : 'authPlatform',
-        aud       : 'authPlatform'
+        uuid     : '58dcaba5-99cb-459d-a4b7-4dc27e9008d5',
+        email    : 'chuck@norris.com',
+        strategy : 'cloudUser',
+        status   : 1,
+        alg      : 'RS256',
+        key      : 'authPlatform',
+        aud      : 'authPlatform'
       },
 
       FAKE_DECODED_UNKNOWN_USER                                    = {
-        id        : 3,
-        email     : 'chuck@norris.com',
-        firstName : 'Chuck',
-        lastName  : 'Norris',
-        strategy  : 'cloudUser',
-        status    : 1,
-        alg       : 'RS256',
-        key       : 'foo',
-        aud       : 'authPlatform'
+        uuid     : '58dcaba5-99cb-459d-a4b7-4dc27e9008d5',
+        email    : 'chuck@norris.com',
+        strategy : 'cloudUser',
+        status   : 1,
+        alg      : 'RS256',
+        key      : 'foo',
+        aud      : 'authPlatform'
       },
 
       FAKE_JWT_INVALID                                             = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJjaXc1OXJjeHUwMDAwdWhwMXlncHp6anByIiwibmFtZSI6IlRlc3QgQWdlbnQgMSIsInN0YXR1cyI6MSwiZXhwIjo5NjA4MTcyOTEzNn0.XZHI2JLcujFhdpZXJQtQJ8Vq0AO8u5QVlCnJkUnof4',
@@ -273,7 +264,7 @@ let FAKE_RES;
 
 describe('ensureAuthorized middleware', () => {
   beforeEach(() => {
-    FAKE_RES                                              = jasmine.createSpyObj('res', ['send', 'set']);
+    FAKE_RES                                           = jasmine.createSpyObj('res', ['send', 'set']);
     process.env.NODE_AUTHENTICATOR_RELATIVE_CACHE_PATH = KNOWN_TEST_CACHE_PATH;
   });
 

@@ -91,3 +91,6 @@ router.get('/some/route/:id', ensureAuthorized, (req, res) => {
 
 ##### 1.0.2
   - Add support for refreshToken renewal
+
+##### 1.1.0
+  - Replace `id` with `uuid` support throughout for `cloudUser` / `tenant` / `tenantOrganization`

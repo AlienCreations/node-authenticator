@@ -5,7 +5,7 @@ const { error, errors } = require('@aliencreations/node-error');
 const verify = require('../../../../../../src/authenticator/strategies/jwt/methods/verify');
 
 const FAKE_SECRET  = 'fakesecret',
-      FAKE_DECODED = { id : 1234 },
+      FAKE_DECODED = { uuid : 'b7526a46-8b9d-4abc-8313-1349ffff7b07' },
       FAKE_OPTIONS = { foo : 'bar' },
       FAKE_TOKEN   = 'faketoken';
 

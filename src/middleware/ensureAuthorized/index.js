@@ -41,7 +41,7 @@ const continueWithErrorIfNotPermitted = (axios, checkPermission) => (decoded, re
         routePath          = R.pathOr('', ['route', 'path'], req),
         uri                = `${baseUrl}${routePath}`.replace(/\/$/, ''),
         method             = R.propOr('', 'method', req),
-        cloudUserId        = decoded.id,
+        cloudUserUuid      = decoded.uuid,
         tenant             = R.propOr({}, 'tenant', req),
         tenantOrganization = R.propOr({}, 'tenantOrganization', req);
 
@@ -56,7 +56,7 @@ const continueWithErrorIfNotPermitted = (axios, checkPermission) => (decoded, re
           debug : {
             tenant,
             tenantOrganization,
-            cloudUserId,
+            cloudUserUuid,
             method,
             uri,
             baseUrl,
@@ -69,13 +69,13 @@ const continueWithErrorIfNotPermitted = (axios, checkPermission) => (decoded, re
     const NO_PERMISSION = { hasPermission : 0 };
 
     if (checkPermission) {
-      return checkPermission(uri, method, cloudUserId, tenant.id, tenantOrganization.id)
+      return checkPermission(uri, method, cloudUserUuid, tenant.uuid, tenantOrganization.uuid)
         .then(finish);
     } else {
-      const tenantId             = tenant.id || '-',
-            tenantOrganizationId = tenantOrganization.id || '-';
+      const tenantUuid             = tenant.uuid || '-',
+            tenantOrganizationUuid = tenantOrganization.uuid || '-';
 
-      return axios.get(process.env.AUTH_PLATFORM_API_ROOT + `/api/v1/auth/tenantAccessPermission/public/check/${btoa(uri)}/${method}/${cloudUserId}/${tenantId}/${tenantOrganizationId}`)
+      return axios.get(process.env.AUTH_PLATFORM_API_ROOT + `/api/v1/auth/tenantAccessPermission/public/check/${btoa(uri)}/${method}/${cloudUserUuid}/${tenantUuid}/${tenantOrganizationUuid}`)
         .then(R.path(['data', 'data']))
         .then(R.when(R.either(R.isEmpty, R.isNil), R.always(NO_PERMISSION)))
         .then(finish);
