@@ -94,3 +94,6 @@ router.get('/some/route/:id', ensureAuthorized, (req, res) => {
 
 ##### 1.1.0
   - Replace `id` with `uuid` support throughout for `cloudUser` / `tenant` / `tenantOrganization`
+
+##### 1.1.1
+  - Update `node-error`
